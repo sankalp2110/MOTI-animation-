@@ -182,17 +182,19 @@
 //   );
 // }
 
-import React, { Children, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import { Text, Box, Icon, Center, VStack, Button } from "native-base";
 import { Feather } from "@expo/vector-icons";
-import { MotiText, MotiView } from "moti";
-import { Easing } from "react-native-reanimated";
+import { MotiView } from "moti";
+
 function ButtonAnimation({
   size,
   onPress,
+  buttonscale,
 }: {
   size: number;
-  onPress: (width: number) => void;
+  buttonscale: number;
+  onPress: (buttonscale: number) => void;
 }) {
   const [scale, setScale] = useState(1);
   return (
@@ -200,12 +202,12 @@ function ButtonAnimation({
       from={{
         width: size,
         borderRadius: 5,
-        scale: scale,
+        scale: buttonscale,
       }}
       animate={{
         width: size,
         translateX: 20,
-        scale: scale,
+        scale: buttonscale,
       }}
       transition={{
         type: "timing",
@@ -219,7 +221,8 @@ function ButtonAnimation({
       <Button
         width={size}
         onPress={() => {
-          setScale(scale == 1 ? 0 : 1);
+          onPress(buttonscale == 1 ? 0 : 1);
+          console.log(buttonscale);
         }}
         height={undefined}
         borderRadius='10'
@@ -233,36 +236,45 @@ function ButtonAnimation({
 function CheckCircle({
   size,
   onPress,
+  success,
 }: {
   size: number;
   onPress: (size: number) => void;
+  success: number;
 }) {
-  const [scale, setScale] = useState(0);
   return (
     <MotiView
       from={{
-        size: size,
-        // scale: scale,
+        scale: success,
       }}
       animate={{
         width: size,
         translateX: 20,
-        scale: scale,
+        scale: success,
       }}
       transition={{
         type: "timing",
         duration: 3000,
       }}
       style={{
-        size: size,
+        width: size,
       }}
     >
-      <Icon as={Feather} name='check-circle' color='green.600' size={size} />
+      <Box>
+        <Icon as={Feather} name='check-circle' color='green.600' size={size} />
+      </Box>
     </MotiView>
   );
 }
 export default function Animation() {
   const [width, setWidth] = useState(400);
+  const [buttonscale, setButtonscale] = useState(1);
+  const [success, setSuccess] = useState(0);
+  useEffect(() => {
+    if (buttonscale == 0) {
+      setSuccess(1);
+    }
+  }, [buttonscale]);
   return (
     <>
       <Box safeAreaTop />
@@ -270,8 +282,16 @@ export default function Animation() {
         Animating Button component from nativebase
       </Text>
       <VStack bg='coolGray.800' flex={1} pt={20}>
-        <ButtonAnimation size={width} onPress={(width) => setWidth(width)} />
-        <CheckCircle size={size} />
+        <ButtonAnimation
+          size={width}
+          buttonscale={buttonscale}
+          onPress={(buttonwidth) => setButtonscale(buttonwidth)}
+        />
+        <CheckCircle
+          size={width}
+          onPress={(width) => setWidth(width)}
+          success={success}
+        />
       </VStack>
     </>
   );
