@@ -1,65 +1,104 @@
-import React from "react";
-import { Text, Box, Icon, Center, VStack } from "native-base";
-import { MaterialIcons } from "@expo/vector-icons";
-import { MotiView } from "moti";
-import { Easing } from "react-native-reanimated";
-const LoadingIndicator = ({ size }) => {
-  return (
-    <MotiView
-      from={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        borderWidth: 0.3,
-        shadowOpacity: 0.2,
-      }}
-      animate={{
-        width: size + 20,
-        height: size + 20,
-        borderRadius: size / 2,
-        borderWidth: size / 10,
-        shadowOpacity: 1,
-      }}
-      transition={{
-        type: "timing",
-        duration: 2000,
-        loop: true,
-      }}
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        borderWidth: size / 10,
-        borderColor: "#b91c1c",
-        shadowColor: "#b91c1c",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 1,
-        shadowRadius: 10,
-      }}
-    />
-  );
-};
+// import React from "react";
+// import { Text, Box, Icon, Center, VStack, Button } from "native-base";
+// import { MaterialIcons } from "@expo/vector-icons";
+// import { MotiView } from "moti";
+// import { Easing } from "react-native-reanimated";
+// const LoadingIndicator = ({ size }) => {
+//   return (
+//     <MotiView
+//       from={{
+//         width: size,
+//         height: size,
+//         borderRadius: size / 2,
+//         borderWidth: 0.3,
+//         shadowOpacity: 0.2,
+//       }}
+//       animate={{
+//         width: size + 20,
+//         height: size + 20,
+//         borderRadius: size / 2,
+//         borderWidth: size / 10,
+//         shadowOpacity: 1,
+//       }}
+//       transition={{
+//         type: "timing",
+//         duration: 2000,
+//         loop: true,
+//       }}
+//       style={{
+//         width: size,
+//         height: size,
+//         borderRadius: size / 2,
+//         borderWidth: size / 10,
+//         borderColor: "#b91c1c",
+//         shadowColor: "#b91c1c",
+//         shadowOffset: { width: 0, height: 0 },
+//         shadowOpacity: 1,
+//         shadowRadius: 10,
+//       }}
+//     />
+//   );
+// };
+// export default function Home() {
+//   return (
+//     <>
+//       <Box safeAreaTop />
+//       <VStack>
+//         <MotiView></MotiView>
+//       </VStack>
+//       <Text>rgnirg</Text>
+//     </>
+//   );
+// }
 
-const TextStyle = {
-  color: "coolGray.50",
-  fontWeight: "bold",
-  textAlign: "center",
-  fontSize: "3xl",
-};
-export default function App() {
-  return (
-    <>
-      <Box safeAreaTop />
-      <Text textAlign="center" fontWeight="semibold" fontSize="3xl">
-        Loading Animation
-      </Text>
-      <Box
+// const TextStyle = {
+//   color: "coolGray.50",
+//   fontWeight: "bold",
+//   textAlign: "center",
+//   fontSize: "3xl",
+// };
+// export default function App() {
+//   return (
+//     <>
+//       <Box safeAreaTop />
+//       <Text textAlign='center' fontWeight='semibold' fontSize='3xl'>
+//         Animation
+//       </Text>
+//       <VStack px={4} justifyContent='center'>
+//         <MotiView
+//           from={{
+//             translateY: -200,
+//           }}
+//           animate={{
+//             translateY: 50,
+//           }}
+//           transition={{
+//             loop: true,
+//             type: "timing",
+//             duration: 1500,
+//             delay: 100,
+//           }}
+//         >
+//           <Button
+//             bg='amber.800'
+//             onPress={() => {
+//               alert("test");
+//             }}
+//           >
+//             Primary
+//           </Button>
+//         </MotiView>
+// </VStack>
+{
+  /* <Box
         flex={1}
         alignItems="center"
         justifyContent="center"
         bg="coolGray.900"
-      >
-        {/* <Box alignItems="center" justifyContent="center">
+      > */
+}
+{
+  /* <Box alignItems="center" justifyContent="center">
           <MotiView
             from={{ translateY: 300 }}
             animate={{
@@ -88,9 +127,13 @@ export default function App() {
               <Text {...TextStyle}>NATIVEBASE</Text>
             </VStack>
           </MotiView>
-        </Box> */}
-        <LoadingIndicator size={100} />
-        {/* <Box
+        </Box> */
+}
+{
+  /* <LoadingIndicator size={100} /> */
+}
+{
+  /* <Box
           width="100"
           height="100"
           borderRadius="100"
@@ -130,8 +173,106 @@ export default function App() {
             color="white"
             size={16}
           />
-        </Box> */}
-      </Box>
+        </Box> */
+}
+{
+  /* </Box> */
+}
+//     </>
+//   );
+// }
+
+import React, { Children, useState } from "react";
+import { Text, Box, Icon, Center, VStack, Button } from "native-base";
+import { Feather } from "@expo/vector-icons";
+import { MotiText, MotiView } from "moti";
+import { Easing } from "react-native-reanimated";
+function ButtonAnimation({
+  size,
+  onPress,
+}: {
+  size: number;
+  onPress: (width: number) => void;
+}) {
+  const [scale, setScale] = useState(1);
+  return (
+    <MotiView
+      from={{
+        width: size,
+        borderRadius: 5,
+        scale: scale,
+      }}
+      animate={{
+        width: size,
+        translateX: 20,
+        scale: scale,
+      }}
+      transition={{
+        type: "timing",
+        duration: 3000,
+      }}
+      style={{
+        width: size,
+        borderColor: "#5B21B6",
+      }}
+    >
+      <Button
+        width={size}
+        onPress={() => {
+          setScale(scale == 1 ? 0 : 1);
+        }}
+        height={undefined}
+        borderRadius='10'
+        bg='#5B21B6'
+      >
+        Confirm Order
+      </Button>
+    </MotiView>
+  );
+}
+function CheckCircle({
+  size,
+  onPress,
+}: {
+  size: number;
+  onPress: (size: number) => void;
+}) {
+  const [scale, setScale] = useState(0);
+  return (
+    <MotiView
+      from={{
+        size: size,
+        // scale: scale,
+      }}
+      animate={{
+        width: size,
+        translateX: 20,
+        scale: scale,
+      }}
+      transition={{
+        type: "timing",
+        duration: 3000,
+      }}
+      style={{
+        size: size,
+      }}
+    >
+      <Icon as={Feather} name='check-circle' color='green.600' size={size} />
+    </MotiView>
+  );
+}
+export default function Animation() {
+  const [width, setWidth] = useState(400);
+  return (
+    <>
+      <Box safeAreaTop />
+      <Text textAlign='center' justifyContent='center' color='white'>
+        Animating Button component from nativebase
+      </Text>
+      <VStack bg='coolGray.800' flex={1} pt={20}>
+        <ButtonAnimation size={width} onPress={(width) => setWidth(width)} />
+        <CheckCircle size={size} />
+      </VStack>
     </>
   );
 }
