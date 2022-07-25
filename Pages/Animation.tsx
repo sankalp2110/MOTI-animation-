@@ -182,8 +182,8 @@
 //   );
 // }
 
-import React, { Children, useEffect, useState } from "react";
-import { Text, Box, Icon, Center, VStack, Button } from "native-base";
+import React, { useEffect, useState } from "react";
+import { Text, Box, Icon, VStack, Button } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import { MotiView } from "moti";
 
@@ -227,6 +227,8 @@ function ButtonAnimation({
         height={undefined}
         borderRadius='10'
         bg='#5B21B6'
+        // mt={6}
+        py={3}
       >
         Confirm Order
       </Button>
@@ -249,20 +251,26 @@ function CheckCircle({
       }}
       animate={{
         width: size,
-        translateX: 20,
+        translateX: 180,
         scale: success,
       }}
       transition={{
         type: "timing",
         duration: 3000,
+        delay: 2500,
       }}
       style={{
         width: size,
       }}
     >
-      <Box>
-        <Icon as={Feather} name='check-circle' color='green.600' size={size} />
-      </Box>
+      <Icon
+        as={Feather}
+        name='check-circle'
+        color='green.600'
+        size={16}
+        height={size}
+        width={size}
+      />
     </MotiView>
   );
 }
@@ -278,19 +286,25 @@ export default function Animation() {
   return (
     <>
       <Box safeAreaTop />
-      <Text textAlign='center' justifyContent='center' color='white'>
+      <Text
+        textAlign='center'
+        justifyContent='center'
+        color='black'
+        fontSize='lg'
+        fontWeight='semibold'
+      >
         Animating Button component from nativebase
       </Text>
-      <VStack bg='coolGray.800' flex={1} pt={20}>
-        <ButtonAnimation
-          size={width}
-          buttonscale={buttonscale}
-          onPress={(buttonwidth) => setButtonscale(buttonwidth)}
-        />
+      <VStack bg='coolGray.800' flex={1}>
         <CheckCircle
           size={width}
           onPress={(width) => setWidth(width)}
           success={success}
+        />
+        <ButtonAnimation
+          size={width}
+          buttonscale={buttonscale}
+          onPress={(buttonwidth) => setButtonscale(buttonwidth)}
         />
       </VStack>
     </>
