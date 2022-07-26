@@ -198,41 +198,42 @@ function ButtonAnimation({
 }) {
   const [scale, setScale] = useState(1);
   return (
-    <MotiView
-      from={{
-        width: size,
-        borderRadius: 5,
-        scale: buttonscale,
-      }}
-      animate={{
-        width: size,
-        translateX: 20,
-        scale: buttonscale,
-      }}
-      transition={{
-        type: "timing",
-        duration: 3000,
-      }}
-      style={{
-        width: size,
-        borderColor: "#5B21B6",
-      }}
-    >
-      <Button
-        width={size}
-        onPress={() => {
-          onPress(buttonscale == 1 ? 0 : 1);
-          console.log(buttonscale);
+    <Box mt={10}>
+      <MotiView
+        from={{
+          width: size,
+          borderRadius: 5,
+          scale: buttonscale,
         }}
-        height={undefined}
-        borderRadius='10'
-        bg='#5B21B6'
-        // mt={6}
-        py={3}
+        animate={{
+          width: size,
+          translateX: 20,
+          scale: buttonscale,
+        }}
+        transition={{
+          type: "timing",
+          duration: 3000,
+        }}
+        style={{
+          width: size,
+          borderColor: "#5B21B6",
+        }}
       >
-        Confirm Order
-      </Button>
-    </MotiView>
+        <Button
+          width={size}
+          onPress={() => {
+            onPress(buttonscale == 1 ? 0 : 1);
+            console.log(buttonscale);
+          }}
+          height={undefined}
+          borderRadius='10'
+          bg='#5B21B6'
+          py={3}
+        >
+          Confirm Order
+        </Button>
+      </MotiView>
+    </Box>
   );
 }
 function CheckCircle({
@@ -274,6 +275,7 @@ function CheckCircle({
     </MotiView>
   );
 }
+
 export default function Animation() {
   const [width, setWidth] = useState(400);
   const [buttonscale, setButtonscale] = useState(1);
@@ -293,9 +295,10 @@ export default function Animation() {
         fontSize='lg'
         fontWeight='semibold'
       >
-        Animating Button component from nativebase
+        Animation
       </Text>
-      <VStack bg='coolGray.800' flex={1}>
+
+      <VStack bg='coolGray.800' flex={1} pt={40} safeAreaBottom>
         <CheckCircle
           size={width}
           onPress={(width) => setWidth(width)}
