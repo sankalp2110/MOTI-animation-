@@ -225,7 +225,6 @@ function ButtonAnimation({
         onPress={() => {
           onPress(buttonscale == 1 ? 0 : 1);
           setPressed(!pressed);
-          console.log(buttonscale);
         }}
         height={undefined}
         borderRadius='10'
@@ -253,7 +252,7 @@ function CheckCircle({
       }}
       animate={{
         width: size,
-        translateX: 180,
+        translateX: 150,
         translateY: 100,
         scale: success,
       }}
@@ -271,9 +270,19 @@ function CheckCircle({
         name='check-circle'
         color='green.600'
         size={16}
+        ml={7}
         height={size}
         width={size}
       />
+      <Text
+        color='white'
+        textAlign='left'
+        fontSize='lg'
+        fontWeight='medium'
+        mt={3}
+      >
+        Order confirmed
+      </Text>
     </MotiView>
   );
 }
