@@ -183,9 +183,10 @@
 // }
 
 import React, { useEffect, useState } from "react";
-import { Text, Box, Icon, VStack, Button } from "native-base";
+import { Text, Box, Icon, VStack, Button, Pressable } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import { MotiView } from "moti";
+import { Transition } from "react-native-reanimated";
 
 function ButtonAnimation({
   size,
@@ -197,43 +198,43 @@ function ButtonAnimation({
   onPress: (buttonscale: number) => void;
 }) {
   const [scale, setScale] = useState(1);
+  const [pressed, setPressed] = useState(false);
   return (
-    <Box mt={10}>
-      <MotiView
-        from={{
-          width: size,
-          borderRadius: 5,
-          scale: buttonscale,
+    <MotiView
+      from={{
+        width: size,
+        borderRadius: 5,
+        transform: [{ scale: buttonscale }, { translateY: -10 }],
+      }}
+      animate={{
+        width: size,
+        translateX: 10,
+        transform: [{ scale: buttonscale }, { translateY: 10 }],
+      }}
+      transition={{
+        type: "timing",
+        delay: 100,
+        loop: pressed ? false : true,
+      }}
+      style={{
+        width: size,
+      }}
+    >
+      <Button
+        width={size}
+        onPress={() => {
+          onPress(buttonscale == 1 ? 0 : 1);
+          setPressed(!pressed);
+          console.log(buttonscale);
         }}
-        animate={{
-          width: size,
-          translateX: 20,
-          scale: buttonscale,
-        }}
-        transition={{
-          type: "timing",
-          duration: 3000,
-        }}
-        style={{
-          width: size,
-          borderColor: "#5B21B6",
-        }}
+        height={undefined}
+        borderRadius='10'
+        bg='#5B21B6'
+        py={3}
       >
-        <Button
-          width={size}
-          onPress={() => {
-            onPress(buttonscale == 1 ? 0 : 1);
-            console.log(buttonscale);
-          }}
-          height={undefined}
-          borderRadius='10'
-          bg='#5B21B6'
-          py={3}
-        >
-          Confirm Order
-        </Button>
-      </MotiView>
-    </Box>
+        Confirm Order
+      </Button>
+    </MotiView>
   );
 }
 function CheckCircle({
@@ -253,12 +254,13 @@ function CheckCircle({
       animate={{
         width: size,
         translateX: 180,
+        translateY: 100,
         scale: success,
       }}
       transition={{
         type: "timing",
-        duration: 3000,
-        delay: 2500,
+        duration: 1000,
+        delay: 500,
       }}
       style={{
         width: size,
