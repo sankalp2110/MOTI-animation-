@@ -182,7 +182,7 @@
 //   );
 // }
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import { Text, Box, Icon, VStack, Button, Pressable } from "native-base";
 import { Feather } from "@expo/vector-icons";
 import { MotiView } from "moti";
@@ -288,14 +288,47 @@ function CheckCircle({
 }
 
 export default function Animation() {
-  const [width, setWidth] = useState(400);
-  const [buttonscale, setButtonscale] = useState(1);
-  const [success, setSuccess] = useState(0);
-  useEffect(() => {
-    if (buttonscale == 0) {
-      setSuccess(1);
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "INCREMENT":
+        return {
+          count: state.count + 1,
+          showText: state.showText,
+        };
+      case "CHANGETEXT":
+        return {
+          count: state.count,
+          showText: !state.showText,
+        };
+      default:
+        return state;
     }
-  }, [buttonscale]);
+  };
+  const [state, dispatch] = useReducer(reducer, {
+    count: 0,
+    showText: true,
+  });
+
+  // const [text, setShowText] = useState(true);
+  // const [count, setCount] = useState(0);
+
+  // <Button
+  //   colorScheme='primary'
+  //   onPress={() => {
+  //     console.log("hello");
+  //   }}
+  // >
+  //   Primary
+  // </Button>;
+
+  // const [width, setWidth] = useState(400);
+  // const [buttonscale, setButtonscale] = useState(1);
+  // const [success, setSuccess] = useState(0);
+  // useEffect(() => {
+  //   if (buttonscale == 0) {
+  //     setSuccess(1);
+  //   }
+  // }, [buttonscale]);
   return (
     <>
       <Box safeAreaTop />
@@ -306,11 +339,38 @@ export default function Animation() {
         fontSize='lg'
         fontWeight='semibold'
       >
-        Animation
+        hooks practice
       </Text>
 
-      <VStack bg='coolGray.800' flex={1} pt={40} safeAreaBottom>
-        <CheckCircle
+      <VStack
+        bg='coolGray.800'
+        flex={1}
+        pt={40}
+        space={3}
+        safeAreaBottom
+        alignItems='center'
+      >
+        <Text color='white' textAlign='center' fontWeight='bold'>
+          {state.count}
+        </Text>
+        <Button
+          width='30%'
+          onPress={() => {
+            dispatch({ type: "INCREMENT" });
+            dispatch({ type: "CHANGETEXT" });
+            // setCount(count + 1);
+            // setShowText(text);
+          }}
+        >
+          increment
+        </Button>
+        {state.showText && (
+          <Text color='white' fontWeight='bold' fontSize='2xl'>
+            toggle text
+          </Text>
+        )}
+
+        {/* <CheckCircle
           size={width}
           onPress={(width) => setWidth(width)}
           success={success}
@@ -319,7 +379,7 @@ export default function Animation() {
           size={width}
           buttonscale={buttonscale}
           onPress={(buttonwidth) => setButtonscale(buttonwidth)}
-        />
+        /> */}
       </VStack>
     </>
   );
