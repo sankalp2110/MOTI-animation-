@@ -1,23 +1,11 @@
-// import React from "react";
-// import { NativeBaseProvider, extendTheme } from "native-base";
-// import Animation from "./Pages/Animation";
-
-// export default function App() {
-//   return (
-//     <NativeBaseProvider>
-//       <Animation />
-//     </NativeBaseProvider>
-//   );
-// }
-
 import React from "react";
 import { NativeBaseProvider, extendTheme, theme } from "native-base";
 import ExitBeforeEnter from "./Pages/ExitBeforeEnter";
 
 const customTheme = extendTheme({
   colors: {
-    primary: { ...theme.colors.violet },
-    secondary: "#eab308",
+    primary: { ...theme.colors.orange },
+    secondary: "#f97316",
   },
   sizes: {
     1: 4,
@@ -31,7 +19,6 @@ export default function App() {
   return (
     <NativeBaseProvider theme={customTheme}>
       <ExitBeforeEnter />
-      {/* <ButtonAnimation size={40} buttonscale={1} onPress={() => {}} /> */}
     </NativeBaseProvider>
   );
 }

@@ -2,7 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import React, { useReducer } from "react";
 import { StyleSheet } from "react-native";
 import { MotiView } from "moti";
-import { Pressable, Text, theme, Button } from "native-base";
+import { Text, theme, Button } from "native-base";
 
 function AnimatedButton({
   bg,
@@ -23,10 +23,7 @@ function AnimatedButton({
         opacity: 1,
         scale: 1,
       }}
-      transition={{
-        type: "timing",
-        duration: 1000,
-      }}
+      transition={{ type: "timing", duration: 1000, delay: 10 }}
       exit={{
         opacity: 0,
         scale: 0.9,
@@ -35,7 +32,6 @@ function AnimatedButton({
         styles.shape,
         {
           backgroundColor: bg,
-          // height: visible ? theme.sizes[10] : theme.sizes[16],
         },
       ]}
     >
@@ -54,7 +50,7 @@ function AnimatedButton({
 export default function ExitBeforeEnter() {
   const [visible, toggle] = useReducer((s) => !s, true);
   return (
-    <Pressable
+    <Button
       onPress={toggle}
       flex={1}
       alignItems='center'
@@ -78,7 +74,7 @@ export default function ExitBeforeEnter() {
           />
         )}
       </AnimatePresence>
-    </Pressable>
+    </Button>
   );
 }
 
