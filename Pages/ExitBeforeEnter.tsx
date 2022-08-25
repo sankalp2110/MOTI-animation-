@@ -1,5 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useReducer, useState } from "react";
+//@ts-ignore
+import { useStyledSystemPropsResolver } from "native-base/src/hooks/useStyledSystemPropsResolver.ts";
 
 import { MotiView } from "moti";
 import {
@@ -98,7 +100,7 @@ const NBMotiView = ({
   ...props
 }: any) => {
   const FactoryView = Factory(MotiView);
-
+  // console.log(from.height);
   // from={{
   //   p: 10,
   // }}
@@ -109,14 +111,15 @@ const NBMotiView = ({
 
   const resolvedProps = {
     from: {
-      padding: 10,
+      padding: from.p,
     },
     animate: {
-      padding: 40,
+      padding: animate.p,
     },
     transition: { type: "timing", duration: 1000, delay: 10 },
   };
-  console.log(props);
+  // console.log(props);
+  // console.log(useStyledSystemPropsResolver({ p: 10 }));
   return (
     <FactoryView {...resolvedProps} {...props}>
       {children}

@@ -1,6 +1,8 @@
 import React from "react";
 import { NativeBaseProvider, extendTheme, theme } from "native-base";
 import ExitBeforeEnter from "./Pages/ExitBeforeEnter";
+//@ts-ignore
+import { useStyledSystemPropsResolver } from "native-base/src/hooks/useStyledSystemPropsResolver.ts";
 
 const customTheme = extendTheme({
   colors: {
